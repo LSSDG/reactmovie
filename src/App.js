@@ -1,8 +1,20 @@
  import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
  import 'bootstrap/dist/css/bootstrap.min.css';
+ import Cart from './components/Cart/Cart';
+ import {useState} from 'react';
+ import {Modal} from 'react-bootstrap';
  
 
 function App() {
+  const [cartVisible,setCartVisible] = useState(false);
+  const clicked=()=>{
+    console.log('danny');
+    setCartVisible(true);
+  }
+  const unclicked=()=>{
+    console.log('dan');
+    setCartVisible(false);
+  }
   return (
     <div className="App">
     <Navbar bg="dark" variant="dark">
@@ -13,7 +25,7 @@ function App() {
           <Nav.Link href="#">About</Nav.Link>
         </Nav>
       </Navbar.Collapse>
-      <Button>CART</Button>
+      <Button onClick={clicked}>CART</Button>
       <h3>0</h3>
     </Navbar>
     <Navbar align="center"  bg='light' variant='success'><Navbar.Brand ><h1>REACT MOVIE</h1></Navbar.Brand></Navbar>
@@ -45,6 +57,7 @@ function App() {
       </Container>  
       <h1></h1>
       <Container><Button>SEE THE CART</Button></Container>
+      {cartVisible && <Cart hide={unclicked}/> }
       <footer>REACT MOVIE</footer>
        
     </div>
