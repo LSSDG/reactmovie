@@ -1,11 +1,16 @@
  import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
  import 'bootstrap/dist/css/bootstrap.min.css';
  import Cart from './components/Cart/Cart';
- import {useState} from 'react';
+ import {useState,useContext} from 'react';
  import {Modal} from 'react-bootstrap';
+ //import CartContext from './components/Cart/CartContext';
+import CartProvider from './components/Cart/CartProvider';
+import Products from './components/Products/Products';
  
 
 function App() {
+  //const cartCtx=useContext(CartContext);
+  
   const [cartVisible,setCartVisible] = useState(false);
   const clicked=()=>{
     console.log('danny');
@@ -16,7 +21,7 @@ function App() {
     setCartVisible(false);
   }
   return (
-    <div className="App">
+    <div className='App'> 
     <Navbar bg="dark" variant="dark">
       <Navbar.Collapse>
         <Nav>
@@ -28,38 +33,16 @@ function App() {
       <Button onClick={clicked}>CART</Button>
       <h3>0</h3>
     </Navbar>
-    <Navbar align="center"  bg='light' variant='success'><Navbar.Brand ><h1>REACT MOVIE</h1></Navbar.Brand></Navbar>
-      <Container>
-        <Row>
-          <h2>MUSIC</h2>
-          <Col>
-          <Image src="https://prasadyash2411.github.io/ecom-website/img/Album%201.png"></Image>
-          <h3>$19.99</h3>
-          <Button>ADD TO CART</Button></Col>
-          <Col>
-          <Image src="https://prasadyash2411.github.io/ecom-website/img/Album%202.png"></Image>
-          <h3>$14.99</h3>
-          <Button>ADD TO CART</Button>  
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          <Image src="https://prasadyash2411.github.io/ecom-website/img/Album%203.png"></Image>
-          <h3>$29.99</h3>
-          <Button>ADD TO CART</Button></Col>
-          <Col>
-          <Image src="https://prasadyash2411.github.io/ecom-website/img/Album%204.png"></Image>  
-          <h3>$12.99</h3>
-          <Button>ADD TO CART</Button>
-          </Col>
-        </Row>
-
-      </Container>  
-      <h1></h1>
+    <Navbar align="center"  bg='light' variant='success'><Navbar.Brand ><h1>REACT MOVIE</h1>
+    </Navbar.Brand></Navbar>
+     <CartProvider><Products/> 
+        
+      <h1>REACT MOVIE</h1>
       <Container><Button>SEE THE CART</Button></Container>
       {cartVisible && <Cart hide={unclicked}/> }
-      <footer>REACT MOVIE</footer>
+      <footer>REACT MOVIE</footer></CartProvider>
        
+      
     </div>
   );
 }
