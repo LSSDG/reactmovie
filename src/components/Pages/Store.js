@@ -1,5 +1,5 @@
 import Cart from '../Cart/Cart';
-import {useState,useContext} from 'react';
+import {useState,useContext,useEffect} from 'react';
 import CartProvider from '../Cart/CartProvider';
 import Products from '../Products/Products';
 import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
@@ -10,6 +10,9 @@ const Store = () =>{
     const [cartVisible,setCartVisible] = useState(false);
     const [movies,setMovies] = useState([]);
     const [loading,setLoading] = useState(false);
+    useEffect(()=>{
+        fetchMoviesHandler();
+    },[])
     const clicked=()=>{
         console.log('danny');
         setCartVisible(true);
@@ -18,13 +21,27 @@ const Store = () =>{
         console.log('dan');
         setCartVisible(false);
       }
-    const fetchMoviesHandler = ()=>{
+    async function fetchMoviesHandler () {
+
         setLoading(true);
-        fetch('https://swapi.dev/api/films').then(res=>{
-            return res.json();
-        }).then(data=>setMovies(data.results)).catch(err=>console.log(err));
-        setLoading(false);
-    }  
+        try{
+            const res = await fetch('https://swapi.dev/api/films'); 
+            if(!res.ok){
+                throw new Error('Something went wrong');
+            }
+            const data=res.json();
+            setLoading(false);
+            
+        }
+        
+        
+        catch(error){
+             console.log(error);
+        }
+        }
+        
+        
+      
 
 
     return(<div>
