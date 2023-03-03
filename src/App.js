@@ -1,49 +1,57 @@
  import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
  import 'bootstrap/dist/css/bootstrap.min.css';
- import Cart from './components/Cart/Cart';
- import {useState,useContext} from 'react';
- import {Modal} from 'react-bootstrap';
+// import Cart from './components/Cart/Cart';
+// import {useState,useContext} from 'react';
+// import {Modal} from 'react-bootstrap';
  //import CartContext from './components/Cart/CartContext';
-import CartProvider from './components/Cart/CartProvider';
-import Products from './components/Products/Products';
+//import CartProvider from './components/Cart/CartProvider';
+//import Products from './components/Products/Products';
+import {BrowserRouter,Routes,Route,NavLink} from 'react-router-dom';
+import Store from './components/Pages/Store';
+import Home from './components/Pages/Home';
+import About from './components/Pages/About';
  
 
 function App() {
   //const cartCtx=useContext(CartContext);
   
-  const [cartVisible,setCartVisible] = useState(false);
-  const clicked=()=>{
-    console.log('danny');
-    setCartVisible(true);
-  }
-  const unclicked=()=>{
-    console.log('dan');
-    setCartVisible(false);
-  }
+  
+  
   return (
-    <div className='App'> 
-    <Navbar bg="dark" variant="dark">
-      <Navbar.Collapse>
-        <Nav>
-          <Nav.Link href="#">Home</Nav.Link>
-          <Nav.Link href="#">Store</Nav.Link>
-          <Nav.Link href="#">About</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-      <Button onClick={clicked}>CART</Button>
-      <h3>0</h3>
-    </Navbar>
-    <Navbar align="center"  bg='light' variant='success'><Navbar.Brand ><h1>REACT MOVIE</h1>
-    </Navbar.Brand></Navbar>
-     <CartProvider><Products/> 
-        
-      <h1>REACT MOVIE</h1>
-      <Container><Button>SEE THE CART</Button></Container>
-      {cartVisible && <Cart hide={unclicked}/> }
-      <footer>REACT MOVIE</footer></CartProvider>
+    <BrowserRouter> 
+      <div style={{
+        display:'flex',
+        background:'black',
+        padding:'5px 0 5px 5px',
+        fontSize:'20px'
+      }}>
+        <div style={{margin:'10px'}}>
+          <NavLink to ="/" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Home</NavLink>
+
+        </div>
+        <div style={{margin:'10px'}}>
+          <NavLink to ="/store" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Store</NavLink>
+
+        </div>
+        <div style={{margin:'10px'}}>
+          <NavLink to ="/about" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>About Us</NavLink>
+
+        </div>
+
+      </div>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/store' element={<Store/>}/>
+        <Route path='/about' element={<About/>}/>
+      </Routes>
+     
+      
+     
+     
+      
        
       
-    </div>
+    </BrowserRouter>
   );
 }
 
