@@ -1,5 +1,5 @@
 import Cart from '../Cart/Cart';
-import {useState,useContext,useEffect} from 'react';
+import {useState,useContext,useEffect, useCallback} from 'react';
 import CartProvider from '../Cart/CartProvider';
 import Products from '../Products/Products';
 import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
@@ -10,9 +10,7 @@ const Store = () =>{
     const [cartVisible,setCartVisible] = useState(false);
     const [movies,setMovies] = useState([]);
     const [loading,setLoading] = useState(false);
-    useEffect(()=>{
-        fetchMoviesHandler();
-    },[])
+    
     const clicked=()=>{
         console.log('danny');
         setCartVisible(true);
@@ -21,7 +19,7 @@ const Store = () =>{
         console.log('dan');
         setCartVisible(false);
       }
-    async function fetchMoviesHandler () {
+    const fetchMoviesHandler =useCallback(async () =>{
 
         setLoading(true);
         try{
@@ -34,11 +32,14 @@ const Store = () =>{
             
         }
         
-        
         catch(error){
              console.log(error);
         }
-        }
+        },[])
+
+        useEffect(()=>{
+            fetchMoviesHandler();
+        },[fetchMoviesHandler])
         
         
       
