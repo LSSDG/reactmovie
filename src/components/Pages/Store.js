@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Store = () =>{
     const [cartVisible,setCartVisible] = useState(false);
+    const [movies,setMovies] = useState([]);
     const clicked=()=>{
         console.log('danny');
         setCartVisible(true);
@@ -16,6 +17,12 @@ const Store = () =>{
         console.log('dan');
         setCartVisible(false);
       }
+    const fetchMoviesHandler = ()=>{
+        fetch('https://swapi.dev/api/films').then(res=>{
+            return res.json();
+        }).then(data=>setMovies(data.results)).catch(err=>console.log(err))
+    }  
+
 
     return(<div>
         <button onClick={clicked}>CART</button>
@@ -26,6 +33,8 @@ const Store = () =>{
         <Container><Button>SEE THE CART</Button></Container>
         {cartVisible && <Cart hide={unclicked}/> }
         <footer>REACT MOVIE</footer></CartProvider>
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+        <ul>{movies.map(movie=><h3>{movie.title}</h3>)}</ul>
     </div>)
 }
 
