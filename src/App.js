@@ -10,6 +10,7 @@ import {BrowserRouter,Routes,Route,NavLink} from 'react-router-dom';
 import Store from './components/Pages/Store';
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
+import ContactUs from './components/Pages/ContactUs';
  
 
 function App() {
@@ -37,12 +38,17 @@ function App() {
           <NavLink to ="/about" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>About Us</NavLink>
 
         </div>
+        <div style={{margin:'10px'}}>
+          <NavLink to ="/contact" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Contact Us</NavLink>
+
+        </div>
 
       </div>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/store' element={<Store/>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/contact' element={<ContactUs/>}/>
       </Routes>
      
       
