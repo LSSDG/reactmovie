@@ -6,20 +6,24 @@
  //import CartContext from './components/Cart/CartContext';
 //import CartProvider from './components/Cart/CartProvider';
 //import Products from './components/Products/Products';
-import {BrowserRouter,Routes,Route,NavLink} from 'react-router-dom';
+import {BrowserRouter,Routes,Route,NavLink,Navigate} from 'react-router-dom';
 import Store from './components/Pages/Store';
 import Home from './components/Pages/Home';
 import About from './components/Pages/About';
 import ContactUs from './components/Pages/ContactUs';
+import Login from './components/Pages/Login';
+import AuthContext from './components/store/auth-context';
+import {useContext} from 'react';
+import { AuthContextProvider } from './components/store/auth-context';
  
 
 function App() {
-  //const cartCtx=useContext(CartContext);
+  const authCtx=useContext(AuthContext);
   
   
   
   return (
-    <BrowserRouter> 
+     <BrowserRouter> 
       <div style={{
         display:'flex',
         background:'black',
@@ -42,6 +46,13 @@ function App() {
           <NavLink to ="/contact" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Contact Us</NavLink>
 
         </div>
+        <div style={{margin:'10px'}}>
+          <NavLink to ="/login" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Login</NavLink>
+
+        </div>
+        <div>
+          {authCtx.isLoggedIn && <Navigate to='/store'></Navigate>}
+        </div>
 
       </div>
       <Routes>
@@ -49,6 +60,7 @@ function App() {
         <Route path='/store' element={<Store/>}/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
+        <Route path='/login' element={<Login/>}/>
       </Routes>
      
       
@@ -57,7 +69,7 @@ function App() {
       
        
       
-    </BrowserRouter>
+    </BrowserRouter> 
   );
 }
 

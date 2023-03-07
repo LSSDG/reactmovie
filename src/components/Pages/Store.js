@@ -40,7 +40,7 @@ const Store = () =>{
         console.log('dan');
         setCartVisible(false);
       }
-    const fetchMoviesHandler =  async () =>{
+    const fetchMoviesHandler =  useCallback(async () =>{
 
         setLoading(true);
         try{
@@ -65,7 +65,7 @@ const Store = () =>{
         catch(error){
              console.log(error);
         }
-        } 
+        },[] )
 
         useEffect(()=>{
             fetchMoviesHandler();
@@ -78,11 +78,13 @@ const Store = () =>{
     return(<div>
         <button onClick={clicked}>CART</button>
         <h3>0</h3>
-        <CartProvider><Products/> 
+        <CartProvider>
+        {cartVisible && <Cart hide={unclicked}/> }
+            <Products/> 
         
         <h1>REACT MOVIE</h1>
         <Container><Button>SEE THE CART</Button></Container>
-        {cartVisible && <Cart hide={unclicked}/> }
+        
         <footer>REACT MOVIE</footer></CartProvider>
         <form onSubmit={submitHandler}>
             <label htmlFor='title'>Title</label>
@@ -96,7 +98,7 @@ const Store = () =>{
 
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
         {loading && <p>Loading ...</p>}
-        <ul>{movies.map(movie=><h3>{movie.title}</h3>)}</ul>
+        <ul>{movies.map(movie=><h3 key={movie.open}>{movie.title}</h3>)}</ul>
     </div>)
 }
 
