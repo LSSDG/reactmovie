@@ -1,12 +1,14 @@
 import React, { Fragment ,useContext} from 'react';
 //import {Modal} from 'react-bootstrap';
 import CartContext from './CartContext';
+import CartItem from './CartItem';
+import classes from './Cart.module.css';
 
  
 const Cart= (props)=>{
     const cartContextImp=useContext(CartContext);
     const totalAmount = `$${cartContextImp.totalAmount.toFixed(2)}`;
-    //const containsItems=cartContextImp.items.length>0;
+    const containsItems=cartContextImp.items.length>0;
     const totalItems=cartContextImp.items.length;
     const addItemHandler = item=>{
         cartContextImp.addItem({...item,amount:1})
@@ -14,6 +16,12 @@ const Cart= (props)=>{
     const removeItemHandler = id =>{
         cartContextImp.removeItem(id);
     }
+    const cartItems =<ul className=  {classes['cart-items']}>{cartContextImp.items.map(item=>{
+        return <CartItem key={item.id} title={item.title} price={item.price} amount={item.amount} onAdd={addItemHandler.bind(null,item)} onRemove={removeItemHandler.bind(null,item.id)}/>
+             
+             
+          
+    })}</ul>
     /*const cartElements = [{
 
         title: 'Colors',
@@ -44,17 +52,10 @@ const Cart= (props)=>{
     return (
         <Fragment>
              
-        {cartContextImp.items.map(elem=>{
-            return(<div key={Math.random().toString()}>
-                <li>Title:{elem.title}</li>
-                <li>${elem.price}</li>
-                <h1>{elem.amount}</h1>
-                <button onClick={addItemHandler}  >ADD</button>
-                <button onClick={removeItemHandler}  >REMOVE</button>
-            </div>)
-        })}
-        <button onClick={props.hide}>Close</button>
+        {cartItems}
+        
         <h3>TOTAL{totalAmount}</h3>
+        <button onClick={props.hide}>Close</button>
          </Fragment>
     )
 }

@@ -4,10 +4,17 @@ import CartProvider from '../Cart/CartProvider';
 import Products from '../Products/Products';
 import {Button,Container,Row,Col,Navbar,Nav,Image} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import AuthContext from '../store/auth-context';
+import CartNo from '../Cart/CartNo';
 
 
 const Store = () =>{
+    const navigate=useNavigate();
+    const authCtx=useContext(AuthContext);
+    if(!authCtx.isLoggedIn){
+        navigate('/login');
+    }
     const [cartVisible,setCartVisible] = useState(false);
     const [movies,setMovies] = useState([]);
     const [loading,setLoading] = useState(false);
@@ -69,16 +76,18 @@ const Store = () =>{
 
         useEffect(()=>{
             fetchMoviesHandler();
-        },[fetchMoviesHandler])
+        },[ ])
         
         
       
 
 
-    return(<div>
-        <button onClick={clicked}>CART</button>
-        <h3>0</h3>
+    return(
+    <div>
         <CartProvider>
+            <button onClick={clicked}>CART</button>
+        <CartNo/>
+        
         {cartVisible && <Cart hide={unclicked}/> }
             <Products/> 
         

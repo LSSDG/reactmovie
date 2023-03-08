@@ -51,13 +51,13 @@ function App() {
 
         </div>
         <div>
-          {authCtx.isLoggedIn && <Navigate to='/store'></Navigate>}
+          {authCtx.isLoggedIn && <Navigate to='/store'></Navigate> }
         </div>
 
       </div>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/store' element={<Store/>}/>
+        <Route path='/store' element={ <Store/>  }/>
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<ContactUs/>}/>
         <Route path='/login' element={<Login/>}/>
