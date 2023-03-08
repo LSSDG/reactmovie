@@ -12,9 +12,9 @@ import CartNo from '../Cart/CartNo';
 const Store = () =>{
     const navigate=useNavigate();
     const authCtx=useContext(AuthContext);
-    if(!authCtx.isLoggedIn){
-        navigate('/login');
-    }
+    //if(!authCtx.isLoggedIn){
+    //    navigate('/login');
+    //}
     const [cartVisible,setCartVisible] = useState(false);
     const [movies,setMovies] = useState([]);
     const [loading,setLoading] = useState(false);

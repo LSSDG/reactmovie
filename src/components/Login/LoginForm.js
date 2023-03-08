@@ -1,8 +1,9 @@
-import { useRef } from "react";
+import { useRef ,useContext} from "react";
+import AuthContext from "../store/auth-context";
 
 
 const LoginForm = ()=>{
-
+    const authCtx=useContext(AuthContext);
     const emailRef=useRef();
     const passwordRef=useRef();
     
@@ -21,8 +22,14 @@ const LoginForm = ()=>{
                 returnSecureToken:true
             })
         });
-        const data=res.json();
-        console.log(data);
+        if(res.ok){
+            const data=await res.json();
+            authCtx.login(data.idToken);
+            console.log(data.idToken);
+        }else{
+            console.log('error');
+        }
+        
     }
     return(<form onSubmit={submitHandler}>
         <div>

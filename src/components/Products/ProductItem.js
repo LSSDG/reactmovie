@@ -11,7 +11,18 @@ const ProductItem = props =>{
             price:props.price,
             amount:amount,
              
-        })
+        });
+        const cartItem ={
+            id:props.id,
+            title:props.title,
+            price:props.price,
+            amount:amount
+        }
+        fetch('https://crudcrud.com/api/7eaf8696fd1d429895de4135904c1942/useritems',{
+            method:'POST',
+            body:JSON.stringify(cartItem),
+            headers:{'Content-Type':'application/json'}
+        }).then(res=>console.log(res.json())).catch(err=>console.log(err));
     }
     return(<li>
         <h3>{props.title}</h3>

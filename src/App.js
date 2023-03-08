@@ -50,9 +50,7 @@ function App() {
           <NavLink to ="/login" style={({isActive}) => ({color: isActive ? 'green' :'white'})}>Login</NavLink>
 
         </div>
-        <div>
-          {authCtx.isLoggedIn && <Navigate to='/store'></Navigate> }
-        </div>
+         
 
       </div>
       <Routes>
